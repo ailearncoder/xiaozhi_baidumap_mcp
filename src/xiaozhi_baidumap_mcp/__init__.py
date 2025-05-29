@@ -17,4 +17,6 @@ def main() -> None:
         os.environ["RPC_PORT"] = "30923"
         os.environ["THING_PORT"] = "30926"
         os.environ["PLAYER_PORT"] = "30930"
+    if os.path.exists("baidu_maps_mcp.log"):
+        os.remove("baidu_maps_mcp.log")
     run()
