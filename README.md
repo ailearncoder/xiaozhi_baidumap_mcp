@@ -1,4 +1,7 @@
-### MCP Usage
+### 开发参考
+https://lbsyun.baidu.com/faq/api?title=webapi/uri/andriod
+
+## MCP Usage
 ```json
 {
   "mcpServers": {
