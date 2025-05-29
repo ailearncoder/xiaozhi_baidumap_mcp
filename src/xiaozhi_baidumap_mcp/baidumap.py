@@ -10,6 +10,7 @@ from typing_extensions import Annotated # For older Python versions, ensure typi
 from mcp.server.fastmcp import FastMCP
 # Assuming these are your custom classes, ensure they are correctly defined/imported
 from xiaozhi_app.plugins import AndroidDevice, Intent, Uri
+import os
 
 # --- Configuration ---
 DEFAULT_SRC = "andr.xiaomi.assistant" # Your app identifier
@@ -660,14 +661,15 @@ def baidumap_open_news_assistant(
     logger.info(f"Generated open_news_assistant URI: {uri}")
     return Navigate(uri)
 
-@mcp.tool(
-    description="Geocodes an address using Baidu Maps API. Returns wgs84 coordinates \"latitude,longitude\"",
-    annotations={"title": "Geocode Address", "readOnlyHint": True, "openWorldHint": True}
-)
-def baidumap_maps_geocode(
-    address: Annotated[str, Field(description='The address string to geocode. E.g., "北京市海淀区上地信息路9号奎科科技大厦".')]
-) -> str:
-    return "40.057406,116.296440"
+if os.getenv("PC_DEBUG"):
+    @mcp.tool(
+        description="Geocodes an address using Baidu Maps API. Returns wgs84 coordinates \"latitude,longitude\"",
+        annotations={"title": "Geocode Address", "readOnlyHint": True, "openWorldHint": True}
+    )
+    def baidumap_maps_geocode(
+        address: Annotated[str, Field(description='The address string to geocode. E.g., "北京市海淀区上地信息路9号奎科科技大厦".')]
+    ) -> str:
+        return "40.057406,116.296440"
 
 @mcp.tool(
     description="Gets the current device location (latitude, longitude, address) as a JSON string. Returns an error message on failure.",
